@@ -5,7 +5,8 @@
   "description": "Aprendiendo Stack MERN JS",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
   "author": "Raúl Valdez",
   "license": "ISC",

@@ -14,7 +14,10 @@ app.use("/", (req, res) => {
   res.send("Hola Mundo!!");
 });
 
+// para definir el PORT
+const PORT = process.env.PORT || 4000;
+
 // Listener del servidor de express
-app.listen(4000, () => {
-  console.log("Server listen on port 4000");
+app.listen(PORT, () => {
+  console.log(`Server listen on port ${PORT}`);
 });

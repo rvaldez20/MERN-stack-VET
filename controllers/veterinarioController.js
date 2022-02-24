@@ -1,5 +1,8 @@
 const registrar = (req, res) => {
-  res.json({ msg: "Registrando Usuario" });
+  // Obtenemos los datos del formulario
+  const { email, password, nombre } = req.body;
+
+  res.json({ msg: "Registrando Usuario", email, password, nombre });
 };
 
 const perfil = (req, res) => {

@@ -5,12 +5,16 @@ import veterinarioRoutes from "./routes/veterinarioRoutes.js";
 
 const app = express();
 
+// habilitamos el bodyparser
+app.use(express.json());
+
 // Configuración de variables de entorno
 dotenv.config();
 
 // Conexion a la base de datos
 conectarDB();
 
+// para routes veterinarios
 app.use("/api/veterinarios", veterinarioRoutes);
 
 // para definir el PORT

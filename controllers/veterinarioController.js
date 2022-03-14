@@ -48,4 +48,12 @@ const confirmar = async (req, res) => {
   }
 };
 
-export { registrar, perfil, confirmar };
+const autenticar = (req, res) => {
+  console.log(req.body);
+
+  // para autenticar: verificar que el usuario exista, que este confirmada, que el passwor sea correcto
+
+  res.json({ msg: "Autenticando" });
+};
+
+export { registrar, perfil, confirmar, autenticar };

@@ -60,8 +60,12 @@ const autenticar = async (req, res) => {
   }
 
   // Validamos que este confirmada,
+  if (!usuario.confirmado) {
+    const error = new Error("Tu cuenta no ha sido confirmada");
+    return res.status(403).json({ msg: error.message });
+  }
 
-  //Y validamos que el passwor sea correcto
+  //Y validamos que el passwor sea correcto para autenticar al usuario
 };
 
 export { registrar, perfil, confirmar, autenticar };

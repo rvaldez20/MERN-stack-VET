@@ -5,11 +5,15 @@ import {
   confirmar,
   autenticar,
 } from "../controllers/veterinarioController.js";
+import checkAuth from "../middleware/authMiddleware.js";
 const router = express.Router();
 
+// rutas publicas
 router.post("/", registrar);
-router.get("/perfil", perfil);
 router.get("/confirmar/:token", confirmar);
 router.post("/login", autenticar);
+
+// rutas protegidas
+router.get("/perfil", checkAuth, perfil);
 
 export default router;

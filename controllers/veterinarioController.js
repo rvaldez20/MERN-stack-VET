@@ -50,7 +50,7 @@ const confirmar = async (req, res) => {
 
 const autenticar = async (req, res) => {
   // console.log(req.body);
-  const { email } = req.body;
+  const { email, password } = req.body;
 
   // Validamos que el usuario exista
   const usuario = await Veterinario.findOne({ email });
@@ -65,7 +65,13 @@ const autenticar = async (req, res) => {
     return res.status(403).json({ msg: error.message });
   }
 
-  //Y validamos que el passwor sea correcto para autenticar al usuario
+  // Revisar el password
+  if (await usuario.comprobarPassword(password)) {
+    // autenticar con JWT
+  } else {
+    const error = new Error("El Password es Incorrecto");
+    return res.status(403).json({ msg: error.message });
+  }
 };
 
 export { registrar, perfil, confirmar, autenticar };

@@ -1,5 +1,5 @@
 import Veterinario from "../models/Veterinario.js";
-import generarJWT from "../helpers/henerarJWT.js";
+import generarJWT from "../helpers/generarJWT.js";
 
 const registrar = async (req, res) => {
   // Obtenemos los datos del formulario

@@ -84,7 +84,24 @@ const autenticar = async (req, res) => {
   }
 };
 
-const olvidePassword = async (req, res) => {};
+const olvidePassword = async (req, res) => {
+  const { email } = req.body;
+  // console.log(email);
+
+  const existeVeterinario = await Veterinario.findOne({ email });
+  if (!existeVeterinario) {
+    const error = new Error("El usuario no existe");
+    return res.status(400).json({ msg: error.message });
+  }
+
+  try {
+    existeVeterinario.token = generarId();
+    await existeVeterinario.save();
+    res.json({ msg: "Hemos enviado un email con las instrucciones" });
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 const comprobarToken = (req, res) => {};
 

@@ -116,7 +116,27 @@ const comprobarToken = async (req, res) => {
   }
 };
 
-const nuevoPassword = (req, res) => {};
+const nuevoPassword = async (req, res) => {
+  const { token } = req.params;
+  const { password } = req.body;
+
+  const veterinario = await Veterinario.findOne({ token });
+  if (!veterinario) {
+    const error = new Error("Error inesperado");
+    return res.status(400).json({ msg: error.message });
+  }
+
+  try {
+    veterinario.token = null;
+    veterinario.password = password;
+    await veterinario.save();
+    console.log(veterinario);
+
+    res.json({ msg: "Password modificado Correctamente" });
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 export {
   registrar,

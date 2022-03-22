@@ -15,7 +15,7 @@ const pacientesSchema = mongoose.Schema(
       required: true,
     },
     fechaAlta: {
-      type: String,
+      type: Date,
       required: true,
     },
     sintomas: {
@@ -33,3 +33,5 @@ const pacientesSchema = mongoose.Schema(
 );
 
 const Paciente = mongoose.model("Paciente", pacientesSchema);
+
+export default Paciente;

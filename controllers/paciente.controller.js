@@ -30,4 +30,37 @@ const obtenerPacientes = async (req, res) => {
   }
 };
 
-export { agregarPaciente, obtenerPacientes };
+const obtenerPaciente = async (req, res) => {
+  const { idPaciente } = req.params;
+
+  try {
+    const paciente = await Paciente.findById(idPaciente);
+
+    if (paciente.veterinario.toString() !== req.veterinario._id.toString()) {
+      return res.json({ msg: "Acción no valida" });
+    }
+
+    if (!paciente) {
+      const error = new Error("El paciente no esta registrado");
+      return res.status(404).json({ msg: error.message });
+    }
+
+    res.json(paciente);
+
+    // console.log(paciente);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const actualizarPaciente = async (req, res) => {};
+
+const eliminarPaciente = async (req, res) => {};
+
+export {
+  agregarPaciente,
+  obtenerPacientes,
+  obtenerPaciente,
+  actualizarPaciente,
+  eliminarPaciente,
+};

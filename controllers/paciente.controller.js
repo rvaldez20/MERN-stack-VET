@@ -36,13 +36,13 @@ const obtenerPaciente = async (req, res) => {
   try {
     const paciente = await Paciente.findById(idPaciente);
 
-    if (paciente.veterinario.toString() !== req.veterinario._id.toString()) {
-      return res.json({ msg: "Acción no valida" });
-    }
-
     if (!paciente) {
       const error = new Error("El paciente no esta registrado");
       return res.status(404).json({ msg: error.message });
+    }
+
+    if (paciente.veterinario.toString() !== req.veterinario._id.toString()) {
+      return res.json({ msg: "Acción no valida" });
     }
 
     res.json(paciente);
@@ -53,7 +53,33 @@ const obtenerPaciente = async (req, res) => {
   }
 };
 
-const actualizarPaciente = async (req, res) => {};
+const actualizarPaciente = async (req, res) => {
+  const { idPaciente } = req.params;
+
+  try {
+    const paciente = await Paciente.findById(idPaciente);
+
+    if (!paciente) {
+      const error = new Error("El paciente no esta registrado");
+      return res.status(404).json({ msg: error.message });
+    }
+
+    if (paciente.veterinario.toString() !== req.veterinario._id.toString()) {
+      return res.json({ msg: "Acción no valida" });
+    }
+
+    // actualizar paciente
+    paciente.nombre = req.body.nombre || paciente.nombre;
+    paciente.propietario = req.body.propietario || paciente.propietario;
+    paciente.email = req.body.email || paciente.email;
+    paciente.fechaAlta = req.body.fechaAlta || paciente.fechaAlta;
+    paciente.sintomas = req.body.sintomas || paciente.sintomas;
+    const pacienteActualizado = await paciente.save();
+    res.json(pacienteActualizado);
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 const eliminarPaciente = async (req, res) => {};
 
